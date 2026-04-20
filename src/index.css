@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #fff;
+  color: #333;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+h1,
+h2,
+p,
+label,
+button,
+input {
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+}
