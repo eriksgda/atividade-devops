@@ -28,3 +28,20 @@ jobs:
 
     - name: Build
       run: npm run build
+
+    - name: Alert Discord
+      if: always()
+      run: |
+        STATUS="${{ job.status }}"
+        USER="${{ github.actor }}"
+        BRANCH="${{ github.ref_name }}"
+    
+        if [ "$STATUS" = "success" ]; then
+          MSG="✓ $USER fez alteração na branch $BRANCH — CI PASSED!"
+        else
+          MSG="X $USER fez alteração na branch $BRANCH — CI FAILED!"
+        fi
+    
+        curl -H "Content-Type: application/json" \
+        -d "{\"content\": \"$MSG\"}" \
+        ${{ secrets.DISCORD_WEBHOOK }}
