@@ -45,3 +45,20 @@ jobs:
     steps:
       - name: GitHub Pages Deploy
         uses: actions/deploy-pages@v4
+
+      - name: Alert Discord
+        if: always()
+        run: |
+          STATUS="${{ job.status }}"
+          USER="${{ github.actor }}"
+          BRANCH="${{ github.ref_name }}"
+
+          if [ "$STATUS" = "success" ]; then
+            MSG="✓ Deploy SUCCESS - by $USER on $BRANCH"
+          else
+            MSG="X Deploy FAILED - by $USER on $BRANCH"
+          fi
+
+          curl -H "Content-Type: application/json" \
+          -d "{\"content\": \"$MSG\"}" \
+          ${{ secrets.DISCORD_WEBHOOK }}
