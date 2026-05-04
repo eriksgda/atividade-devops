@@ -3,10 +3,10 @@ import { render, screen } from '@testing-library/react'
 import App from './App'
 
 describe('App component', () => {
-  it('should render the LoginForm component', () => {
+  it('should render the RegisterPage component by default', () => {
     render(<App />)
 
-    const heading = screen.getByText('Login')
+    const heading = screen.getByText('Cadastro')
 
     expect(heading).toBeDefined()
   })
